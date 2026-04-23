@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QuizForge — AI Quiz Generator</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --bg: #f5f0e8;
+            --surface: #fffdf7;
+            --surface2: #ede8de;
+            --border: #cfc9bc;
+            --ink: #1a1612;
+            --muted: #7a7468;
+            --accent: #e8410a;
+            --accent2: #f5a623;
+            --correct: #1a7a4a;
+            --wrong: #c0392b;
+            --font-head: 'Outfit', sans-serif;
+            --font-mono: 'Space Mono', monospace;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--ink);
+            font-family: var(--font-head);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .deco-circle {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            border-radius: 50%;
+            border: 60px solid rgba(232, 65, 10, 0.06);
+            top: -200px;
+            right: -200px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .deco-rect {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border: 40px solid rgba(245, 166, 35, 0.08);
+            bottom: -100px;
+            left: -100px;
+            transform: rotate(20deg);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 48px 24px 80px;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .logo {
+            font-size: 2.8rem;
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -2px;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .logo-sub {
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            color: var(--muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 6px;
+        }
+
+        .tag {
+            background: var(--accent);
+            color: white;
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 6px 12px;
+            border-radius: 2px;
+        }
+
+        .api-bar {
+            background: var(--surface);
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            padding: 16px 20px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+            box-shadow: 3px 3px 0 var(--border);
+        }
+
+        .api-label {
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--muted);
+            white-space: nowrap;
+        }
+
+        .api-input {
+            flex: 1;
+            background: var(--surface2);
+            border: 1.5px solid var(--border);
+            border-radius: 6px;
+            padding: 9px 14px;
+            font-family: var(--font-mono);
+            font-size: 0.82rem;
+            color: var(--ink);
+            outline: none;
+            min-width: 180px;
+            transition: border-color 0.2s;
+        }
+
+        .api-input:focus {
+            border-color: var(--accent);
+        }
+
+        .api-input::placeholder {
+            color: var(--muted);
+        }
+
+        .save-btn {
+            background: var(--ink);
+            color: var(--bg);
+            border: none;
+            border-radius: 6px;
+            padding: 9px 18px;
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+
+        .save-btn:hover {
+            background: var(--accent);
+        }
+
+        .key-status {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            color: var(--muted);
+            width: 100%;
+        }
+
+        .key-status.ok {
+            color: var(--correct);
+        }
+
+        .key-status.err {
+            color: var(--wrong);
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            box-shadow: 4px 4px 0 var(--border);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .card-top {
+            background: var(--ink);
+            color: var(--bg);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-top-label {
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            color: var(--ink);
+            font-family: var(--font-head);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            padding: 20px;
+            resize: vertical;
+            min-height: 160px;
+            outline: none;
+        }
+
+        textarea::placeholder {
+            color: var(--muted);
+        }
+
+        .controls {
+            display: flex;
+            gap: 14px;
+            padding: 0 20px 20px;
+            flex-wrap: wrap;
+        }
+
+        .ctrl-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            flex: 1;
+            min-width: 110px;
+        }
+
+        .ctrl-label {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+        select {
+            background: var(--surface2);
+            border: 1.5px solid var(--border);
+            border-radius: 6px;
+            padding: 9px 12px;
+            font-family: var(--font-head);
+            font-size: 0.88rem;
+            color: var(--ink);
+            outline: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        select:focus {
+            border-color: var(--accent);
+        }
+
+        .gen-btn {
+            display: block;
+            width: calc(100% - 40px);
+            margin: 0 20px 20px;
+            padding: 15px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-family: var(--font-head);
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 3px 3px 0 #b8320a;
+        }
+
+        .gen-btn:hover {
+            transform: translate(-1px, -1px);
+            box-shadow: 4px 4px 0 #b8320a;
+        }
+
+        .gen-btn:active {
+            transform: translate(2px, 2px);
+            box-shadow: 1px 1px 0 #b8320a;
+        }
+
+        .gen-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .spinner {
+            display: none;
+            width: 18px;
+            height: 18px;
+            border: 2.5px solid rgba(255, 255, 255, 0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .error-msg {
+            background: rgba(192, 57, 43, 0.08);
+            border: 1.5px solid rgba(192, 57, 43, 0.3);
+            color: var(--wrong);
+            padding: 12px 18px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            margin-bottom: 16px;
+            display: none;
+            font-family: var(--font-mono);
+        }
+
+        #quizArea {
+            display: none;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .quiz-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .quiz-meta {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            color: var(--muted);
+        }
+
+        .progress-bar {
+            height: 5px;
+            background: var(--border);
+            border-radius: 3px;
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            border-radius: 3px;
+            transition: width 0.4s ease;
+        }
+
+        .q-card {
+            background: var(--surface);
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            box-shadow: 4px 4px 0 var(--border);
+            padding: 22px;
+            margin-bottom: 14px;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: none;
+            }
+        }
+
+        .q-number {
+            font-family: var(--font-mono);
+            font-size: 0.62rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        .q-text {
+            font-size: 1rem;
+            font-weight: 600;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+        }
+
+        .option {
+            padding: 11px 16px;
+            background: var(--surface2);
+            border: 1.5px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.15s;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            text-align: left;
+            width: 100%;
+            font-family: var(--font-head);
+            color: var(--ink);
+        }
+
+        .option:hover:not(:disabled) {
+            border-color: var(--accent);
+            background: rgba(232, 65, 10, 0.05);
+            transform: translateX(4px);
+        }
+
+        .option:disabled {
+            cursor: default;
+        }
+
+        .option.correct {
+            background: rgba(26, 122, 74, 0.1);
+            border-color: var(--correct);
+            color: var(--correct);
+            font-weight: 600;
+        }
+
+        .option.wrong {
+            background: rgba(192, 57, 43, 0.1);
+            border-color: var(--wrong);
+            color: var(--wrong);
+        }
+
+        .opt-letter {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .option.correct .opt-letter {
+            background: var(--correct);
+            color: white;
+        }
+
+        .option.wrong .opt-letter {
+            background: var(--wrong);
+            color: white;
+        }
+
+        .explanation {
+            margin-top: 12px;
+            padding: 11px 14px;
+            background: rgba(245, 166, 35, 0.1);
+            border-left: 3px solid var(--accent2);
+            border-radius: 0 6px 6px 0;
+            font-size: 0.83rem;
+            line-height: 1.6;
+            display: none;
+        }
+
+        .explanation.show {
+            display: block;
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        #scoreCard {
+            display: none;
+            background: var(--surface);
+            border: 1.5px solid var(--border);
+            border-radius: 16px;
+            box-shadow: 5px 5px 0 var(--border);
+            padding: 40px;
+            text-align: center;
+            margin-top: 20px;
+            animation: slideIn 0.4s ease;
+        }
+
+        .score-num {
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--accent);
+            line-height: 1;
+            letter-spacing: -2px;
+        }
+
+        .score-label {
+            font-family: var(--font-mono);
+            font-size: 0.68rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin: 8px 0 16px;
+        }
+
+        .score-msg {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .retry-btn {
+            background: var(--ink);
+            color: var(--bg);
+            border: none;
+            border-radius: 8px;
+            padding: 13px 32px;
+            font-family: var(--font-head);
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 3px 3px 0 var(--muted);
+        }
+
+        .retry-btn:hover {
+            background: var(--accent);
+            transform: translate(-1px, -1px);
+            box-shadow: 4px 4px 0 var(--muted);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 48px;
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            color: var(--muted);
+            letter-spacing: 1px;
+        }
+
+        footer span {
+            color: var(--accent);
+        }
+
+        @media(max-width:600px) {
+            .wrapper {
+                padding: 24px 14px 60px;
+            }
+
+            .logo {
+                font-size: 2rem;
+            }
+
+            .api-input {
+                min-width: 0;
+                width: 100%;
+            }
+
+            .save-btn {
+                width: 100%;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            .q-card {
+                padding: 16px;
+            }
+
+            #scoreCard {
+                padding: 28px 16px;
+            }
+
+            .score-num {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="deco-circle"></div>
+    <div class="deco-rect"></div>
+    <div class="wrapper">
+        <header>
+            <div>
+                <div class="logo">Quiz<span>Forge</span></div>
+                <div class="logo-sub">AI-Powered Quiz Generator</div>
+            </div>
+            <div class="tag">Groq · LLaMA 3.3</div>
+        </header>
+
+        <div class="api-bar">
+            <span class="api-label">API Key</span>
+            <input type="password" class="api-input" id="apiKey" placeholder="gsk_..." autocomplete="off" />
+            <button class="save-btn" onclick="saveKey()">Save</button>
+            <div class="key-status" id="keyStatus">Enter your free Groq API key (console.groq.com)</div>
+        </div>
+
+        <div class="card">
+            <div class="card-top">
+                <span class="card-top-label">Paste Your Topic or Text</span>
+            </div>
+            <textarea id="inputText"
+                placeholder="Paste any text, topic, or subject here...&#10;&#10;Examples: 'The French Revolution', a paragraph from your textbook, or any topic you want to be quizzed on."></textarea>
+            <div class="controls">
+                <div class="ctrl-group">
+                    <span class="ctrl-label">Questions (max 25)</span>
+                    <input type="number" id="numQ" min="1" max="25" value="5"
+                        style="background:var(--surface2);border:1.5px solid var(--border);border-radius:6px;padding:9px 12px;font-family:var(--font-head);font-size:0.88rem;color:var(--ink);outline:none;width:100%;"
+                        oninput="if(parseInt(this.value)>25)this.value=25;if(parseInt(this.value)<1)this.value=1;" />
+                </div>
+                <div class="ctrl-group">
+                    <span class="ctrl-label">Difficulty</span>
+                    <select id="difficulty">
+                        <option value="easy">Easy</option>
+                        <option value="medium" selected>Medium</option>
+                        <option value="hard">Hard</option>
+                    </select>
+                </div>
+                <div class="ctrl-group">
+                    <span class="ctrl-label">Type</span>
+                    <select id="qtype">
+                        <option value="mcq" selected>Multiple Choice</option>
+                        <option value="truefalse">True / False</option>
+                    </select>
+                </div>
+            </div>
+            <button class="gen-btn" id="genBtn" onclick="generateQuiz()">
+                <span id="btnText">⚡ GENERATE QUIZ</span>
+                <div class="spinner" id="spinner"></div>
+            </button>
+        </div>
+
+        <div class="error-msg" id="errorMsg"></div>
+
+        <div id="quizArea">
+            <div class="quiz-header">
+                <div class="quiz-title" id="quizTitle">Quiz</div>
+                <div class="quiz-meta" id="quizMeta"></div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width:0%"></div>
+            </div>
+            <div id="questionsContainer"></div>
+        </div>
+
+        <div id="scoreCard">
+            <div class="score-num" id="scoreNum">0/0</div>
+            <div class="score-label">Your Score</div>
+            <div class="score-msg" id="scoreMsg"></div>
+            <button class="retry-btn" onclick="retryQuiz()">↺ Try Again</button>
+        </div>
+
+        <footer>Built by <span>Vibin Iyyappan</span> · Powered by Groq API · QuizForge</footer>
+    </div>
+
+    <script>
+        let apiKey = localStorage.getItem('quizforge_key') || '';
+        let quizData = [], answered = 0, score = 0;
+
+        if (apiKey) {
+            document.getElementById('apiKey').value = apiKey;
+            document.getElementById('keyStatus').textContent = '✓ Key loaded';
+            document.getElementById('keyStatus').className = 'key-status ok';
+        }
+
+        function saveKey() {
+            const val = document.getElementById('apiKey').value.trim();
+            if (!val.startsWith('gsk_')) { document.getElementById('keyStatus').textContent = '✗ Groq keys start with gsk_...'; document.getElementById('keyStatus').className = 'key-status err'; return; }
+            apiKey = val;
+            localStorage.setItem('quizforge_key', val);
+            document.getElementById('keyStatus').textContent = '✓ Key saved!';
+            document.getElementById('keyStatus').className = 'key-status ok';
+        }
+
+        async function generateQuiz() {
+            const text = document.getElementById('inputText').value.trim();
+            const numQ = document.getElementById('numQ').value;
+            const difficulty = document.getElementById('difficulty').value;
+            const qtype = document.getElementById('qtype').value;
+            const errorEl = document.getElementById('errorMsg');
+            errorEl.style.display = 'none';
+
+            if (!apiKey) { errorEl.textContent = '⚠ Please enter and save your Groq API key.'; errorEl.style.display = 'block'; return; }
+            if (!text) { errorEl.textContent = '⚠ Please paste some text or a topic.'; errorEl.style.display = 'block'; return; }
+            const numQVal = parseInt(numQ);
+            if (isNaN(numQVal) || numQVal < 1 || numQVal > 25) { errorEl.textContent = '⚠ Please enter a number between 1 and 25.'; errorEl.style.display = 'block'; return; }
+
+            const btn = document.getElementById('genBtn');
+            btn.disabled = true;
+            document.getElementById('btnText').style.display = 'none';
+            document.getElementById('spinner').style.display = 'block';
+            document.getElementById('quizArea').style.display = 'none';
+            document.getElementById('scoreCard').style.display = 'none';
+
+            const typeInstruction = qtype === 'truefalse'
+                ? `Generate ${numQ} True/False questions. Each options array must be exactly ["True", "False"].`
+                : `Generate ${numQ} multiple choice questions with exactly 4 options each.`;
+
+            const prompt = `You are a quiz generator. ${typeInstruction} Difficulty: ${difficulty}. Topic/Text: """${text}"""
+Respond ONLY with a valid JSON array. No markdown, no extra text.
+[{"question":"...","options":["...","...","...","..."],"answer":0,"explanation":"..."}]
+"answer" is the 0-based index of the correct option.`;
+
+            try {
+                const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+                    body: JSON.stringify({ model: 'llama-3.3-70b-versatile', messages: [{ role: 'user', content: prompt }], max_tokens: 2000, temperature: 0.7 })
+                });
+                if (!res.ok) { const e = await res.json(); throw new Error(e.error?.message || `API error ${res.status}`); }
+                const data = await res.json();
+                let raw = data.choices[0].message.content.trim().replace(/```json|```/g, '').trim();
+                quizData = JSON.parse(raw);
+                if (!Array.isArray(quizData) || !quizData.length) throw new Error('Invalid quiz data.');
+                renderQuiz(text.slice(0, 40) + (text.length > 40 ? '...' : ''), difficulty, qtype);
+            } catch (err) {
+                errorEl.textContent = '✗ Error: ' + err.message;
+                errorEl.style.display = 'block';
+            } finally {
+                btn.disabled = false;
+                document.getElementById('btnText').style.display = 'block';
+                document.getElementById('spinner').style.display = 'none';
+            }
+        }
+
+        function renderQuiz(title, difficulty, qtype) {
+            answered = 0; score = 0;
+            document.getElementById('quizTitle').textContent = '📋 ' + title;
+            document.getElementById('quizMeta').textContent = `${quizData.length} questions · ${difficulty} · ${qtype === 'truefalse' ? 'True/False' : 'MCQ'}`;
+            document.getElementById('progressFill').style.width = '0%';
+            const container = document.getElementById('questionsContainer');
+            container.innerHTML = '';
+            const letters = ['A', 'B', 'C', 'D'];
+            quizData.forEach((q, i) => {
+                const card = document.createElement('div');
+                card.className = 'q-card';
+                card.innerHTML = `
+        <div class="q-number">Question ${i + 1} of ${quizData.length}</div>
+        <div class="q-text">${q.question}</div>
+        <div class="options">${q.options.map((opt, j) => `<button class="option" onclick="selectAnswer(${i},${j})" id="opt-${i}-${j}"><span class="opt-letter">${letters[j] || j + 1}</span>${opt}</button>`).join('')}</div>
+        <div class="explanation" id="exp-${i}">💡 ${q.explanation}</div>`;
+                container.appendChild(card);
+            });
+            document.getElementById('quizArea').style.display = 'block';
+            document.getElementById('quizArea').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function selectAnswer(qIndex, optIndex) {
+            const q = quizData[qIndex];
+            q.options.forEach((_, j) => {
+                const btn = document.getElementById(`opt-${qIndex}-${j}`);
+                btn.disabled = true;
+                if (j === q.answer) btn.classList.add('correct');
+                else if (j === optIndex && optIndex !== q.answer) btn.classList.add('wrong');
+            });
+            document.getElementById(`exp-${qIndex}`).classList.add('show');
+            if (optIndex === q.answer) score++;
+            answered++;
+            document.getElementById('progressFill').style.width = (answered / quizData.length * 100) + '%';
+            if (answered === quizData.length) setTimeout(showScore, 700);
+        }
+
+        function showScore() {
+            const pct = Math.round(score / quizData.length * 100);
+            document.getElementById('scoreNum').textContent = `${score}/${quizData.length}`;
+            const msgs = [[80, '🎉 Excellent! You really know your stuff!'], [60, "👍 Good job! A little more practice and you'll ace it."], [40, "📚 Keep studying — you're getting there!"], [0, '💪 Don\'t give up! Try again to improve.']];
+            document.getElementById('scoreMsg').textContent = msgs.find(([m]) => pct >= m)[1];
+            document.getElementById('scoreCard').style.display = 'block';
+            document.getElementById('scoreCard').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function retryQuiz() {
+            document.getElementById('scoreCard').style.display = 'none';
+            document.getElementById('quizArea').style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+
+</html>
