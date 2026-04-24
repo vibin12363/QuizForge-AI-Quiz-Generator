@@ -14,7 +14,7 @@
         *::after {
             box-sizing: border-box;
             margin: 0;
-            padding: 0;
+            padding: 0
         }
 
         :root {
@@ -29,7 +29,7 @@
             --correct: #1a7a4a;
             --wrong: #c0392b;
             --font-head: 'Outfit', sans-serif;
-            --font-mono: 'Space Mono', monospace;
+            --font-mono: 'Space Mono', monospace
         }
 
         body {
@@ -37,7 +37,7 @@
             color: var(--ink);
             font-family: var(--font-head);
             min-height: 100vh;
-            overflow-x: hidden;
+            overflow-x: hidden
         }
 
         .deco-circle {
@@ -49,7 +49,7 @@
             top: -200px;
             right: -200px;
             pointer-events: none;
-            z-index: 0;
+            z-index: 0
         }
 
         .deco-rect {
@@ -61,7 +61,7 @@
             left: -100px;
             transform: rotate(20deg);
             pointer-events: none;
-            z-index: 0;
+            z-index: 0
         }
 
         .wrapper {
@@ -69,7 +69,7 @@
             z-index: 1;
             max-width: 860px;
             margin: 0 auto;
-            padding: 48px 24px 80px;
+            padding: 48px 24px 80px
         }
 
         header {
@@ -78,18 +78,18 @@
             align-items: flex-start;
             margin-bottom: 40px;
             flex-wrap: wrap;
-            gap: 16px;
+            gap: 16px
         }
 
         .logo {
             font-size: 2.8rem;
             font-weight: 800;
             line-height: 1;
-            letter-spacing: -2px;
+            letter-spacing: -2px
         }
 
         .logo span {
-            color: var(--accent);
+            color: var(--accent)
         }
 
         .logo-sub {
@@ -98,7 +98,7 @@
             color: var(--muted);
             letter-spacing: 2px;
             text-transform: uppercase;
-            margin-top: 6px;
+            margin-top: 6px
         }
 
         .tag {
@@ -109,7 +109,7 @@
             letter-spacing: 2px;
             text-transform: uppercase;
             padding: 6px 12px;
-            border-radius: 2px;
+            border-radius: 2px
         }
 
         .api-bar {
@@ -122,7 +122,7 @@
             align-items: center;
             flex-wrap: wrap;
             margin-bottom: 24px;
-            box-shadow: 3px 3px 0 var(--border);
+            box-shadow: 3px 3px 0 var(--border)
         }
 
         .api-label {
@@ -131,7 +131,7 @@
             letter-spacing: 2px;
             text-transform: uppercase;
             color: var(--muted);
-            white-space: nowrap;
+            white-space: nowrap
         }
 
         .api-input {
@@ -145,15 +145,15 @@
             color: var(--ink);
             outline: none;
             min-width: 180px;
-            transition: border-color 0.2s;
+            transition: border-color 0.2s
         }
 
         .api-input:focus {
-            border-color: var(--accent);
+            border-color: var(--accent)
         }
 
         .api-input::placeholder {
-            color: var(--muted);
+            color: var(--muted)
         }
 
         .save-btn {
@@ -166,26 +166,26 @@
             font-size: 0.75rem;
             cursor: pointer;
             transition: background 0.2s;
-            white-space: nowrap;
+            white-space: nowrap
         }
 
         .save-btn:hover {
-            background: var(--accent);
+            background: var(--accent)
         }
 
         .key-status {
             font-family: var(--font-mono);
             font-size: 0.68rem;
             color: var(--muted);
-            width: 100%;
+            width: 100%
         }
 
         .key-status.ok {
-            color: var(--correct);
+            color: var(--correct)
         }
 
         .key-status.err {
-            color: var(--wrong);
+            color: var(--wrong)
         }
 
         .card {
@@ -194,7 +194,7 @@
             border-radius: 12px;
             box-shadow: 4px 4px 0 var(--border);
             overflow: hidden;
-            margin-bottom: 20px;
+            margin-bottom: 20px
         }
 
         .card-top {
@@ -203,14 +203,14 @@
             padding: 12px 20px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 10px
         }
 
         .card-top-label {
             font-family: var(--font-mono);
             font-size: 0.62rem;
             letter-spacing: 3px;
-            text-transform: uppercase;
+            text-transform: uppercase
         }
 
         textarea {
@@ -224,18 +224,18 @@
             padding: 20px;
             resize: vertical;
             min-height: 160px;
-            outline: none;
+            outline: none
         }
 
         textarea::placeholder {
-            color: var(--muted);
+            color: var(--muted)
         }
 
         .controls {
             display: flex;
             gap: 14px;
             padding: 0 20px 20px;
-            flex-wrap: wrap;
+            flex-wrap: wrap
         }
 
         .ctrl-group {
@@ -243,7 +243,7 @@
             flex-direction: column;
             gap: 5px;
             flex: 1;
-            min-width: 110px;
+            min-width: 110px
         }
 
         .ctrl-label {
@@ -251,7 +251,32 @@
             font-size: 0.6rem;
             letter-spacing: 2px;
             text-transform: uppercase;
+            color: var(--muted)
+        }
+
+        /* Number input styled like select */
+        .num-input {
+            background: var(--surface2);
+            border: 1.5px solid var(--border);
+            border-radius: 6px;
+            padding: 9px 12px;
+            font-family: var(--font-head);
+            font-size: 0.88rem;
+            color: var(--ink);
+            outline: none;
+            width: 100%;
+            transition: border-color 0.2s
+        }
+
+        .num-input:focus {
+            border-color: var(--accent)
+        }
+
+        .num-hint {
+            font-family: var(--font-mono);
+            font-size: 0.58rem;
             color: var(--muted);
+            margin-top: 2px
         }
 
         select {
@@ -264,11 +289,11 @@
             color: var(--ink);
             outline: none;
             cursor: pointer;
-            width: 100%;
+            width: 100%
         }
 
         select:focus {
-            border-color: var(--accent);
+            border-color: var(--accent)
         }
 
         .gen-btn {
@@ -285,23 +310,24 @@
             font-weight: 700;
             cursor: pointer;
             transition: all 0.2s;
-            box-shadow: 3px 3px 0 #b8320a;
+            box-shadow: 3px 3px 0 #b8320a
         }
 
         .gen-btn:hover {
             transform: translate(-1px, -1px);
-            box-shadow: 4px 4px 0 #b8320a;
+            box-shadow: 4px 4px 0 #b8320a
         }
 
         .gen-btn:active {
             transform: translate(2px, 2px);
-            box-shadow: 1px 1px 0 #b8320a;
+            box-shadow: 1px 1px 0 #b8320a
         }
 
         .gen-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
             transform: none;
+            box-shadow: 3px 3px 0 #b8320a
         }
 
         .spinner {
@@ -312,17 +338,15 @@
             border-top-color: white;
             border-radius: 50%;
             animation: spin 0.7s linear infinite;
-            margin: 0 auto;
+            margin: 0 auto
         }
 
         @keyframes spin {
             to {
-                transform: rotate(360deg);
+                transform: rotate(360deg)
             }
         }
 
-
-        /* Error Message */
         .error-msg {
             background: rgba(192, 57, 43, 0.08);
             border: 1.5px solid rgba(192, 57, 43, 0.3);
@@ -332,11 +356,11 @@
             font-size: 0.85rem;
             margin-bottom: 16px;
             display: none;
-            font-family: var(--font-mono);
+            font-family: var(--font-mono)
         }
 
         #quizArea {
-            display: none;
+            display: none
         }
 
         .quiz-header {
@@ -345,18 +369,18 @@
             align-items: center;
             margin-bottom: 16px;
             flex-wrap: wrap;
-            gap: 10px;
+            gap: 10px
         }
 
         .quiz-title {
             font-size: 1.2rem;
-            font-weight: 700;
+            font-weight: 700
         }
 
         .quiz-meta {
             font-family: var(--font-mono);
             font-size: 0.68rem;
-            color: var(--muted);
+            color: var(--muted)
         }
 
         .progress-bar {
@@ -364,14 +388,14 @@
             background: var(--border);
             border-radius: 3px;
             margin-bottom: 24px;
-            overflow: hidden;
+            overflow: hidden
         }
 
         .progress-fill {
             height: 100%;
             background: var(--accent);
             border-radius: 3px;
-            transition: width 0.4s ease;
+            transition: width 0.4s ease
         }
 
         .q-card {
@@ -381,18 +405,18 @@
             box-shadow: 4px 4px 0 var(--border);
             padding: 22px;
             margin-bottom: 14px;
-            animation: slideIn 0.3s ease;
+            animation: slideIn 0.3s ease
         }
 
         @keyframes slideIn {
             from {
                 opacity: 0;
-                transform: translateY(8px);
+                transform: translateY(8px)
             }
 
             to {
                 opacity: 1;
-                transform: none;
+                transform: none
             }
         }
 
@@ -402,20 +426,20 @@
             letter-spacing: 3px;
             text-transform: uppercase;
             color: var(--accent);
-            margin-bottom: 10px;
+            margin-bottom: 10px
         }
 
         .q-text {
             font-size: 1rem;
             font-weight: 600;
             line-height: 1.5;
-            margin-bottom: 16px;
+            margin-bottom: 16px
         }
 
         .options {
             display: flex;
             flex-direction: column;
-            gap: 9px;
+            gap: 9px
         }
 
         .option {
@@ -432,30 +456,30 @@
             text-align: left;
             width: 100%;
             font-family: var(--font-head);
-            color: var(--ink);
+            color: var(--ink)
         }
 
         .option:hover:not(:disabled) {
             border-color: var(--accent);
             background: rgba(232, 65, 10, 0.05);
-            transform: translateX(4px);
+            transform: translateX(4px)
         }
 
         .option:disabled {
-            cursor: default;
+            cursor: default
         }
 
         .option.correct {
             background: rgba(26, 122, 74, 0.1);
             border-color: var(--correct);
             color: var(--correct);
-            font-weight: 600;
+            font-weight: 600
         }
 
         .option.wrong {
             background: rgba(192, 57, 43, 0.1);
             border-color: var(--wrong);
-            color: var(--wrong);
+            color: var(--wrong)
         }
 
         .opt-letter {
@@ -469,17 +493,17 @@
             font-family: var(--font-mono);
             font-size: 0.65rem;
             font-weight: 700;
-            flex-shrink: 0;
+            flex-shrink: 0
         }
 
         .option.correct .opt-letter {
             background: var(--correct);
-            color: white;
+            color: white
         }
 
         .option.wrong .opt-letter {
             background: var(--wrong);
-            color: white;
+            color: white
         }
 
         .explanation {
@@ -490,12 +514,12 @@
             border-radius: 0 6px 6px 0;
             font-size: 0.83rem;
             line-height: 1.6;
-            display: none;
+            display: none
         }
 
         .explanation.show {
             display: block;
-            animation: fadeIn 0.3s;
+            animation: fadeIn 0.3s
         }
 
         @keyframes fadeIn {
@@ -517,7 +541,7 @@
             padding: 40px;
             text-align: center;
             margin-top: 20px;
-            animation: slideIn 0.4s ease;
+            animation: slideIn 0.4s ease
         }
 
         .score-num {
@@ -525,7 +549,7 @@
             font-weight: 800;
             color: var(--accent);
             line-height: 1;
-            letter-spacing: -2px;
+            letter-spacing: -2px
         }
 
         .score-label {
@@ -534,13 +558,13 @@
             letter-spacing: 3px;
             text-transform: uppercase;
             color: var(--muted);
-            margin: 8px 0 16px;
+            margin: 8px 0 16px
         }
 
         .score-msg {
             font-size: 1.05rem;
             font-weight: 600;
-            margin-bottom: 24px;
+            margin-bottom: 24px
         }
 
         .retry-btn {
@@ -554,13 +578,13 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s;
-            box-shadow: 3px 3px 0 var(--muted);
+            box-shadow: 3px 3px 0 var(--muted)
         }
 
         .retry-btn:hover {
             background: var(--accent);
             transform: translate(-1px, -1px);
-            box-shadow: 4px 4px 0 var(--muted);
+            box-shadow: 4px 4px 0 var(--muted)
         }
 
         footer {
@@ -569,45 +593,75 @@
             font-family: var(--font-mono);
             font-size: 0.65rem;
             color: var(--muted);
-            letter-spacing: 1px;
+            letter-spacing: 1px
         }
 
         footer span {
-            color: var(--accent);
+            color: var(--accent)
         }
 
-        @media(max-width:600px) {
+        /* RESPONSIVE */
+        @media(max-width:768px) {
             .wrapper {
-                padding: 24px 14px 60px;
+                padding: 32px 16px 60px
             }
 
             .logo {
-                font-size: 2rem;
+                font-size: 2.2rem
             }
 
             .api-input {
                 min-width: 0;
-                width: 100%;
+                width: 100%
             }
 
             .save-btn {
                 width: 100%;
+                text-align: center
             }
 
             .controls {
-                flex-direction: column;
+                gap: 10px
+            }
+
+            .ctrl-group {
+                min-width: calc(50% - 5px)
+            }
+
+            .gen-btn {
+                width: calc(100% - 32px);
+                margin: 0 16px 16px
             }
 
             .q-card {
-                padding: 16px;
+                padding: 16px
             }
 
             #scoreCard {
-                padding: 28px 16px;
+                padding: 28px 16px
+            }
+        }
+
+        @media(max-width:480px) {
+            .wrapper {
+                padding: 20px 12px 48px
+            }
+
+            .logo {
+                font-size: 1.8rem
+            }
+
+            .ctrl-group {
+                min-width: 100%
             }
 
             .score-num {
-                font-size: 3rem;
+                font-size: 3rem
+            }
+
+            .option {
+                font-size: 0.84rem;
+                padding: 10px 12px
             }
         }
     </style>
@@ -627,23 +681,21 @@
 
         <div class="api-bar">
             <span class="api-label">API Key</span>
-            <input type="password" class="api-input" id="apiKey" placeholder="gsk_..." autocomplete="off" />
+            <input type="password" class="api-input" id="apiKey" placeholder="gsk_..."
+                autocomplete="off" />
             <button class="save-btn" onclick="saveKey()">Save</button>
-            <div class="key-status" id="keyStatus">Enter your free Groq API key (console.groq.com)</div>
+            <div class="key-status" id="keyStatus">Enter your free Groq API key — same key works for all projects!</div>
         </div>
 
         <div class="card">
-            <div class="card-top">
-                <span class="card-top-label">Paste Your Topic or Text</span>
-            </div>
+            <div class="card-top"><span class="card-top-label">Paste Your Topic or Text</span></div>
             <textarea id="inputText"
                 placeholder="Paste any text, topic, or subject here...&#10;&#10;Examples: 'The French Revolution', a paragraph from your textbook, or any topic you want to be quizzed on."></textarea>
             <div class="controls">
                 <div class="ctrl-group">
-                    <span class="ctrl-label">Questions (max 25)</span>
-                    <input type="number" id="numQ" min="1" max="25" value="5"
-                        style="background:var(--surface2);border:1.5px solid var(--border);border-radius:6px;padding:9px 12px;font-family:var(--font-head);font-size:0.88rem;color:var(--ink);outline:none;width:100%;"
-                        oninput="if(parseInt(this.value)>25)this.value=25;if(parseInt(this.value)<1)this.value=1;" />
+                    <span class="ctrl-label">No. of Questions</span>
+                    <input type="number" class="num-input" id="numQ" value="5" min="1" max="25" placeholder="1-25" />
+                    <span class="num-hint">Max: 25 questions</span>
                 </div>
                 <div class="ctrl-group">
                     <span class="ctrl-label">Difficulty</span>
@@ -687,31 +739,25 @@
             <button class="retry-btn" onclick="retryQuiz()">↺ Try Again</button>
         </div>
 
-        <footer>Built by <span>Vibin Iyyappan</span> · Powered by Groq API · QuizForge</footer>
+        <footer>Built by <span>Vibin I</span> · Powered by Groq API · QuizForge</footer>
     </div>
 
     <script>
         let apiKey = localStorage.getItem('quizforge_key') || '';
         let quizData = [], answered = 0, score = 0;
 
-        if (apiKey) {
-            document.getElementById('apiKey').value = apiKey;
-            document.getElementById('keyStatus').textContent = '✓ Key loaded';
-            document.getElementById('keyStatus').className = 'key-status ok';
-        }
+        if (apiKey) { document.getElementById('apiKey').value = apiKey; document.getElementById('keyStatus').textContent = '✓ Key loaded — ready to go!'; document.getElementById('keyStatus').className = 'key-status ok'; }
 
         function saveKey() {
             const val = document.getElementById('apiKey').value.trim();
             if (!val.startsWith('gsk_')) { document.getElementById('keyStatus').textContent = '✗ Groq keys start with gsk_...'; document.getElementById('keyStatus').className = 'key-status err'; return; }
-            apiKey = val;
-            localStorage.setItem('quizforge_key', val);
-            document.getElementById('keyStatus').textContent = '✓ Key saved!';
-            document.getElementById('keyStatus').className = 'key-status ok';
+            apiKey = val; localStorage.setItem('quizforge_key', val);
+            document.getElementById('keyStatus').textContent = '✓ Key saved! Same key works for all your AI projects.'; document.getElementById('keyStatus').className = 'key-status ok';
         }
 
         async function generateQuiz() {
             const text = document.getElementById('inputText').value.trim();
-            const numQ = document.getElementById('numQ').value;
+            const numQRaw = parseInt(document.getElementById('numQ').value);
             const difficulty = document.getElementById('difficulty').value;
             const qtype = document.getElementById('qtype').value;
             const errorEl = document.getElementById('errorMsg');
@@ -719,44 +765,41 @@
 
             if (!apiKey) { errorEl.textContent = '⚠ Please enter and save your Groq API key.'; errorEl.style.display = 'block'; return; }
             if (!text) { errorEl.textContent = '⚠ Please paste some text or a topic.'; errorEl.style.display = 'block'; return; }
-            const numQVal = parseInt(numQ);
-            if (isNaN(numQVal) || numQVal < 1 || numQVal > 25) { errorEl.textContent = '⚠ Please enter a number between 1 and 25.'; errorEl.style.display = 'block'; return; }
+            if (isNaN(numQRaw) || numQRaw < 1 || numQRaw > 25) { errorEl.textContent = '⚠ Please enter a number between 1 and 25.'; errorEl.style.display = 'block'; return; }
 
+            const numQ = numQRaw;
             const btn = document.getElementById('genBtn');
-            btn.disabled = true;
-            document.getElementById('btnText').style.display = 'none';
-            document.getElementById('spinner').style.display = 'block';
-            document.getElementById('quizArea').style.display = 'none';
-            document.getElementById('scoreCard').style.display = 'none';
+            btn.disabled = true; document.getElementById('btnText').style.display = 'none'; document.getElementById('spinner').style.display = 'block';
+            document.getElementById('quizArea').style.display = 'none'; document.getElementById('scoreCard').style.display = 'none';
 
             const typeInstruction = qtype === 'truefalse'
-                ? `Generate ${numQ} True/False questions. Each options array must be exactly ["True", "False"].`
-                : `Generate ${numQ} multiple choice questions with exactly 4 options each.`;
+                ? `Generate exactly ${numQ} True/False questions. Each options array must be exactly ["True","False"].`
+                : `Generate exactly ${numQ} multiple choice questions with exactly 4 options each.`;
 
             const prompt = `You are a quiz generator. ${typeInstruction} Difficulty: ${difficulty}. Topic/Text: """${text}"""
-Respond ONLY with a valid JSON array. No markdown, no extra text.
-[{"question":"...","options":["...","...","...","..."],"answer":0,"explanation":"..."}]
+Respond ONLY with a valid JSON array. No markdown, no extra text. No explanation outside JSON.
+Format: [{"question":"...","options":["...","...","...","..."],"answer":0,"explanation":"..."}]
 "answer" is the 0-based index of the correct option.`;
 
             try {
                 const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
-                    body: JSON.stringify({ model: 'llama-3.3-70b-versatile', messages: [{ role: 'user', content: prompt }], max_tokens: 2000, temperature: 0.7 })
+                    body: JSON.stringify({ model: 'llama-3.3-70b-versatile', messages: [{ role: 'user', content: prompt }], max_tokens: 4000, temperature: 0.7 })
                 });
                 if (!res.ok) { const e = await res.json(); throw new Error(e.error?.message || `API error ${res.status}`); }
                 const data = await res.json();
                 let raw = data.choices[0].message.content.trim().replace(/```json|```/g, '').trim();
-                quizData = JSON.parse(raw);
-                if (!Array.isArray(quizData) || !quizData.length) throw new Error('Invalid quiz data.');
-                renderQuiz(text.slice(0, 40) + (text.length > 40 ? '...' : ''), difficulty, qtype);
+                // Find JSON array in response
+                const match = raw.match(/\[[\s\S]*\]/);
+                if (!match) throw new Error('Could not parse quiz data. Try again.');
+                quizData = JSON.parse(match[0]);
+                if (!Array.isArray(quizData) || !quizData.length) throw new Error('Invalid quiz data received.');
+                renderQuiz(text.slice(0, 45) + (text.length > 45 ? '...' : ''), difficulty, qtype);
             } catch (err) {
-                errorEl.textContent = '✗ Error: ' + err.message;
-                errorEl.style.display = 'block';
+                errorEl.textContent = '✗ Error: ' + err.message; errorEl.style.display = 'block';
             } finally {
-                btn.disabled = false;
-                document.getElementById('btnText').style.display = 'block';
-                document.getElementById('spinner').style.display = 'none';
+                btn.disabled = false; document.getElementById('btnText').style.display = 'block'; document.getElementById('spinner').style.display = 'none';
             }
         }
 
@@ -767,7 +810,7 @@ Respond ONLY with a valid JSON array. No markdown, no extra text.
             document.getElementById('progressFill').style.width = '0%';
             const container = document.getElementById('questionsContainer');
             container.innerHTML = '';
-            const letters = ['A', 'B', 'C', 'D'];
+            const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
             quizData.forEach((q, i) => {
                 const card = document.createElement('div');
                 card.className = 'q-card';
@@ -800,7 +843,7 @@ Respond ONLY with a valid JSON array. No markdown, no extra text.
         function showScore() {
             const pct = Math.round(score / quizData.length * 100);
             document.getElementById('scoreNum').textContent = `${score}/${quizData.length}`;
-            const msgs = [[80, '🎉 Excellent! You really know your stuff!'], [60, "👍 Good job! A little more practice and you'll ace it."], [40, "📚 Keep studying — you're getting there!"], [0, '💪 Don\'t give up! Try again to improve.']];
+            const msgs = [[80, '🎉 Excellent! You really know your stuff!'], [60, "👍 Good job! A little more practice and you'll ace it."], [40, "📚 Keep studying — you're getting there!"], [0, "💪 Don't give up! Try again to improve."]];
             document.getElementById('scoreMsg').textContent = msgs.find(([m]) => pct >= m)[1];
             document.getElementById('scoreCard').style.display = 'block';
             document.getElementById('scoreCard').scrollIntoView({ behavior: 'smooth' });
