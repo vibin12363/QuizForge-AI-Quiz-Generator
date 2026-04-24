@@ -3,7 +3,7 @@
 An AI-powered quiz generator that creates MCQ and True/False questions from any text or topic using the **Groq API** (LLaMA 3.3 70B).
 
 ## 🚀 Live Demo
-[View Live App](https://yourusername.github.io/QuizForge-AI-Quiz-Generator)
+[View Live App](https://quizforge-ai-quiz-generator.netlify.app/)
 
 ## ✨ Features
 - Generate 1–25 questions from any text or topic
@@ -25,7 +25,8 @@ An AI-powered quiz generator that creates MCQ and True/False questions from any 
 5. Type a topic or paste any text → set options → Generate!
 
 ## 📸 Screenshot
-<!-- Add a screenshot here -->
+<img width="638" height="1361" alt="quiz generator" src="https://github.com/user-attachments/assets/669cfb2b-6b15-4150-8997-70e0bea84901" />
+
 
 ## 👨‍💻 Author
 **Vibin Iyyappan**
