@@ -4,10 +4,59 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>QuizForge — AI Quiz Generator</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+    <!-- PRIMARY SEO -->
+    <title>QuizForge — Free AI Quiz Generator Online | Instant MCQ & True/False Quiz Maker</title>
+    <meta name="description"
+        content="QuizForge is a free AI-powered quiz generator. Paste any text or topic and instantly get MCQ or True/False questions with answers and explanations. No signup required." />
+    <meta name="keywords"
+        content="ai quiz generator, free quiz maker, online quiz generator, mcq generator, quiz from text, ai question generator, automatic quiz maker, quiz creator online, free quiz generator, trivia generator, question generator from text" />
+    <meta name="author" content="Vibin Iyyappan" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://quizforge-ai-quiz-generator.netlify.app/" />
+
+    <!-- OPEN GRAPH -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="QuizForge — Free AI Quiz Generator Online" />
+    <meta property="og:description"
+        content="Generate MCQ or True/False quizzes from any text or topic instantly using AI. Free, no login required." />
+    <meta property="og:url" content="https://quizforge-ai-quiz-generator.netlify.app/" />
+    <meta property="og:site_name" content="QuizForge" />
+    <meta property="og:image" content="https://quizforge-ai-quiz-generator.netlify.app/og-image.png" />
+
+    <!-- TWITTER CARD -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="QuizForge — Free AI Quiz Generator" />
+    <meta name="twitter:description" content="Generate quizzes from any text instantly. Free, no login required." />
+    <meta name="twitter:image" content="https://quizforge-ai-quiz-generator.netlify.app/og-image.png" />
+
+    <!-- SCHEMA.ORG -->
+    <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "QuizForge",
+    "description": "Free AI-powered quiz generator that creates MCQ and True/False questions from any text or topic instantly.",
+    "url": "https://quizforge-ai-quiz-generator.netlify.app/",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "author": { "@type": "Person", "name": "Vibin Iyyappan", "url": "https://github.com/vibin12363" },
+    "featureList": [
+      "Generate 1-25 questions", "MCQ and True/False modes",
+      "3 difficulty levels", "AI explanations for answers",
+      "No signup required", "Free to use", "Mobile responsive"
+    ]
+  }
+  </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
         href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Outfit:wght@300;400;500;600;700;800&display=swap"
         rel="stylesheet" />
+
     <style>
         *,
         *::before,
@@ -72,11 +121,12 @@
             padding: 48px 24px 80px
         }
 
+        /* HEADER */
         header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 40px;
+            margin-bottom: 32px;
             flex-wrap: wrap;
             gap: 16px
         }
@@ -112,82 +162,53 @@
             border-radius: 2px
         }
 
-        .api-bar {
-            background: var(--surface);
-            border: 1.5px solid var(--border);
-            border-radius: 10px;
-            padding: 16px 20px;
+        /* HERO */
+        .hero {
+            text-align: center;
+            margin-bottom: 36px;
+            padding: 0 10px
+        }
+
+        .hero h1 {
+            font-family: var(--font-head);
+            font-size: 1.9rem;
+            font-weight: 800;
+            line-height: 1.25;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px
+        }
+
+        .hero h1 span {
+            color: var(--accent)
+        }
+
+        .hero p {
+            font-size: 0.95rem;
+            color: var(--muted);
+            max-width: 580px;
+            margin: 0 auto;
+            line-height: 1.7
+        }
+
+        .hero-pills {
             display: flex;
-            gap: 10px;
-            align-items: center;
+            justify-content: center;
+            gap: 8px;
             flex-wrap: wrap;
-            margin-bottom: 24px;
-            box-shadow: 3px 3px 0 var(--border)
+            margin-top: 16px
         }
 
-        .api-label {
-            font-family: var(--font-mono);
-            font-size: 0.62rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+        .hero-pill {
+            background: var(--surface);
+            border: 1px solid var(--border);
             color: var(--muted);
-            white-space: nowrap
-        }
-
-        .api-input {
-            flex: 1;
-            background: var(--surface2);
-            border: 1.5px solid var(--border);
-            border-radius: 6px;
-            padding: 9px 14px;
-            font-family: var(--font-mono);
-            font-size: 0.82rem;
-            color: var(--ink);
-            outline: none;
-            min-width: 180px;
-            transition: border-color 0.2s
-        }
-
-        .api-input:focus {
-            border-color: var(--accent)
-        }
-
-        .api-input::placeholder {
-            color: var(--muted)
-        }
-
-        .save-btn {
-            background: var(--ink);
-            color: var(--bg);
-            border: none;
-            border-radius: 6px;
-            padding: 9px 18px;
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            cursor: pointer;
-            transition: background 0.2s;
-            white-space: nowrap
-        }
-
-        .save-btn:hover {
-            background: var(--accent)
-        }
-
-        .key-status {
-            font-family: var(--font-mono);
             font-size: 0.68rem;
-            color: var(--muted);
-            width: 100%
+            letter-spacing: 1px;
+            padding: 5px 12px;
+            border-radius: 20px
         }
 
-        .key-status.ok {
-            color: var(--correct)
-        }
-
-        .key-status.err {
-            color: var(--wrong)
-        }
-
+        /* CARD */
         .card {
             background: var(--surface);
             border: 1.5px solid var(--border);
@@ -231,6 +252,7 @@
             color: var(--muted)
         }
 
+        /* CONTROLS */
         .controls {
             display: flex;
             gap: 14px;
@@ -254,7 +276,6 @@
             color: var(--muted)
         }
 
-        /* Number input styled like select */
         .num-input {
             background: var(--surface2);
             border: 1.5px solid var(--border);
@@ -296,6 +317,7 @@
             border-color: var(--accent)
         }
 
+        /* BUTTON */
         .gen-btn {
             display: block;
             width: calc(100% - 40px);
@@ -347,6 +369,7 @@
             }
         }
 
+        /* ERROR */
         .error-msg {
             background: rgba(192, 57, 43, 0.08);
             border: 1.5px solid rgba(192, 57, 43, 0.3);
@@ -359,6 +382,7 @@
             font-family: var(--font-mono)
         }
 
+        /* QUIZ */
         #quizArea {
             display: none
         }
@@ -532,6 +556,7 @@
             }
         }
 
+        /* SCORE */
         #scoreCard {
             display: none;
             background: var(--surface);
@@ -587,17 +612,142 @@
             box-shadow: 4px 4px 0 var(--muted)
         }
 
+        /* HOW IT WORKS */
+        .how-section {
+            margin-top: 64px;
+            padding: 40px 0;
+            border-top: 1.5px solid var(--border)
+        }
+
+        .how-section h2 {
+            font-family: var(--font-head);
+            font-size: 1.4rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 32px
+        }
+
+        .how-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px
+        }
+
+        .how-card {
+            background: var(--surface);
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            padding: 22px;
+            text-align: center;
+            box-shadow: 3px 3px 0 var(--border)
+        }
+
+        .how-icon {
+            font-size: 2rem;
+            margin-bottom: 12px
+        }
+
+        .how-title {
+            font-family: var(--font-head);
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--accent)
+        }
+
+        .how-desc {
+            font-size: 0.8rem;
+            color: var(--muted);
+            line-height: 1.6
+        }
+
+        /* FAQ */
+        .faq-section {
+            margin-top: 48px;
+            padding: 40px 0;
+            border-top: 1.5px solid var(--border)
+        }
+
+        .faq-section h2 {
+            font-family: var(--font-head);
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 28px
+        }
+
+        .faq-item {
+            margin-bottom: 16px;
+            background: var(--surface);
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 2px 2px 0 var(--border)
+        }
+
+        .faq-q {
+            width: 100%;
+            background: transparent;
+            border: none;
+            text-align: left;
+            padding: 16px 20px;
+            font-family: var(--font-head);
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--ink);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px
+        }
+
+        .faq-q:hover {
+            color: var(--accent)
+        }
+
+        .faq-arrow {
+            font-size: 0.75rem;
+            color: var(--muted);
+            transition: transform 0.2s;
+            flex-shrink: 0
+        }
+
+        .faq-item.open .faq-arrow {
+            transform: rotate(180deg)
+        }
+
+        .faq-a {
+            display: none;
+            padding: 14px 20px 16px;
+            font-size: 0.85rem;
+            color: var(--muted);
+            line-height: 1.7;
+            border-top: 1px solid var(--border)
+        }
+
+        .faq-item.open .faq-a {
+            display: block
+        }
+
+        /* FOOTER */
         footer {
             text-align: center;
-            margin-top: 48px;
+            margin-top: 64px;
             font-family: var(--font-mono);
             font-size: 0.65rem;
             color: var(--muted);
-            letter-spacing: 1px
+            letter-spacing: 1px;
+            border-top: 1px solid var(--border);
+            padding-top: 24px
         }
 
-        footer span {
-            color: var(--accent)
+        footer a {
+            color: var(--accent);
+            text-decoration: none
+        }
+
+        footer a:hover {
+            text-decoration: underline
         }
 
         /* RESPONSIVE */
@@ -610,14 +760,8 @@
                 font-size: 2.2rem
             }
 
-            .api-input {
-                min-width: 0;
-                width: 100%
-            }
-
-            .save-btn {
-                width: 100%;
-                text-align: center
+            .hero h1 {
+                font-size: 1.5rem
             }
 
             .controls {
@@ -640,6 +784,10 @@
             #scoreCard {
                 padding: 28px 16px
             }
+
+            .how-grid {
+                grid-template-columns: 1fr 1fr
+            }
         }
 
         @media(max-width:480px) {
@@ -649,6 +797,14 @@
 
             .logo {
                 font-size: 1.8rem
+            }
+
+            .hero h1 {
+                font-size: 1.25rem
+            }
+
+            .hero p {
+                font-size: 0.85rem
             }
 
             .ctrl-group {
@@ -663,6 +819,10 @@
                 font-size: 0.84rem;
                 padding: 10px 12px
             }
+
+            .how-grid {
+                grid-template-columns: 1fr
+            }
         }
     </style>
 </head>
@@ -671,89 +831,158 @@
     <div class="deco-circle"></div>
     <div class="deco-rect"></div>
     <div class="wrapper">
+
         <header>
             <div>
                 <div class="logo">Quiz<span>Forge</span></div>
-                <div class="logo-sub">AI-Powered Quiz Generator</div>
+                <div class="logo-sub">Free AI Quiz Generator</div>
             </div>
-            <div class="tag">Groq · LLaMA 3.3</div>
+            <div class="tag">AI Powered · Free</div>
         </header>
 
-        <div class="api-bar">
-            <span class="api-label">API Key</span>
-            <input type="password" class="api-input" id="apiKey" placeholder="gsk_..."
-                autocomplete="off" />
-            <button class="save-btn" onclick="saveKey()">Save</button>
-            <div class="key-status" id="keyStatus">Enter your free Groq API key — same key works for all projects!</div>
-        </div>
+        <!-- HERO -->
+        <section class="hero" aria-label="Introduction">
+            <h1>Generate Quizzes from Any Text <span>Instantly with AI</span></h1>
+            <p>Paste any topic, article, or textbook content and get MCQ or True/False questions with explanations in
+                seconds. Completely free — no login or API key required.</p>
+            <div class="hero-pills">
+                <span class="hero-pill">✓ No Login Required</span>
+                <span class="hero-pill">✓ 100% Free</span>
+                <span class="hero-pill">✓ 1–25 Questions</span>
+                <span class="hero-pill">✓ MCQ & True/False</span>
+                <span class="hero-pill">✓ Mobile Friendly</span>
+            </div>
+        </section>
 
-        <div class="card">
-            <div class="card-top"><span class="card-top-label">Paste Your Topic or Text</span></div>
-            <textarea id="inputText"
-                placeholder="Paste any text, topic, or subject here...&#10;&#10;Examples: 'The French Revolution', a paragraph from your textbook, or any topic you want to be quizzed on."></textarea>
-            <div class="controls">
-                <div class="ctrl-group">
-                    <span class="ctrl-label">No. of Questions</span>
-                    <input type="number" class="num-input" id="numQ" value="5" min="1" max="25" placeholder="1-25" />
-                    <span class="num-hint">Max: 25 questions</span>
+        <!-- MAIN TOOL -->
+        <main aria-label="Quiz Generator Tool">
+            <div class="card">
+                <div class="card-top"><span class="card-top-label">Paste Your Topic or Text</span></div>
+                <textarea id="inputText"
+                    placeholder="Paste any text, topic, or subject here...&#10;&#10;Examples: 'The Solar System', a paragraph from your textbook, a news article, or any topic you want quizzed."
+                    aria-label="Topic or text input"></textarea>
+                <div class="controls">
+                    <div class="ctrl-group">
+                        <span class="ctrl-label">No. of Questions</span>
+                        <input type="number" class="num-input" id="numQ" value="5" min="1" max="25" placeholder="1–25"
+                            aria-label="Number of questions" />
+                        <span class="num-hint">Max: 25 questions</span>
+                    </div>
+                    <div class="ctrl-group">
+                        <span class="ctrl-label">Difficulty</span>
+                        <select id="difficulty" aria-label="Difficulty level">
+                            <option value="easy">Easy</option>
+                            <option value="medium" selected>Medium</option>
+                            <option value="hard">Hard</option>
+                        </select>
+                    </div>
+                    <div class="ctrl-group">
+                        <span class="ctrl-label">Question Type</span>
+                        <select id="qtype" aria-label="Question type">
+                            <option value="mcq" selected>Multiple Choice (MCQ)</option>
+                            <option value="truefalse">True / False</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="ctrl-group">
-                    <span class="ctrl-label">Difficulty</span>
-                    <select id="difficulty">
-                        <option value="easy">Easy</option>
-                        <option value="medium" selected>Medium</option>
-                        <option value="hard">Hard</option>
-                    </select>
+                <button class="gen-btn" id="genBtn" onclick="generateQuiz()" aria-label="Generate quiz">
+                    <span id="btnText">⚡ GENERATE QUIZ — FREE</span>
+                    <div class="spinner" id="spinner"></div>
+                </button>
+            </div>
+
+            <div class="error-msg" id="errorMsg" role="alert"></div>
+
+            <div id="quizArea" aria-live="polite">
+                <div class="quiz-header">
+                    <div class="quiz-title" id="quizTitle">Quiz</div>
+                    <div class="quiz-meta" id="quizMeta"></div>
                 </div>
-                <div class="ctrl-group">
-                    <span class="ctrl-label">Type</span>
-                    <select id="qtype">
-                        <option value="mcq" selected>Multiple Choice</option>
-                        <option value="truefalse">True / False</option>
-                    </select>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width:0%"></div>
+                </div>
+                <div id="questionsContainer"></div>
+            </div>
+
+            <div id="scoreCard">
+                <div class="score-num" id="scoreNum">0/0</div>
+                <div class="score-label">Your Score</div>
+                <div class="score-msg" id="scoreMsg"></div>
+                <button class="retry-btn" onclick="retryQuiz()">↺ Try Again</button>
+            </div>
+        </main>
+
+        <!-- HOW IT WORKS -->
+        <section class="how-section" aria-label="How QuizForge works">
+            <h2>How QuizForge Works</h2>
+            <div class="how-grid">
+                <div class="how-card">
+                    <div class="how-icon">📄</div>
+                    <div class="how-title">Paste Text</div>
+                    <div class="how-desc">Enter any topic or paste any text, article, or textbook content.</div>
+                </div>
+                <div class="how-card">
+                    <div class="how-icon">⚙️</div>
+                    <div class="how-title">Set Options</div>
+                    <div class="how-desc">Choose number of questions (1–25), difficulty, and question type.</div>
+                </div>
+                <div class="how-card">
+                    <div class="how-icon">🤖</div>
+                    <div class="how-title">AI Generates</div>
+                    <div class="how-desc">LLaMA 3.3 70B AI instantly creates accurate questions with explanations.</div>
+                </div>
+                <div class="how-card">
+                    <div class="how-icon">🏆</div>
+                    <div class="how-title">Take the Quiz</div>
+                    <div class="how-desc">Answer questions, get instant feedback, and see your final score.</div>
                 </div>
             </div>
-            <button class="gen-btn" id="genBtn" onclick="generateQuiz()">
-                <span id="btnText">⚡ GENERATE QUIZ</span>
-                <div class="spinner" id="spinner"></div>
-            </button>
-        </div>
+        </section>
 
-        <div class="error-msg" id="errorMsg"></div>
-
-        <div id="quizArea">
-            <div class="quiz-header">
-                <div class="quiz-title" id="quizTitle">Quiz</div>
-                <div class="quiz-meta" id="quizMeta"></div>
+        <!-- FAQ -->
+        <section class="faq-section" aria-label="Frequently asked questions">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">Is QuizForge completely free?<span
+                        class="faq-arrow">▼</span></button>
+                <div class="faq-a">Yes! QuizForge is 100% free. No signup, no login, no API key, no credit card
+                    required. Just paste your text and generate a quiz instantly.</div>
             </div>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill" style="width:0%"></div>
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">What kind of text can I use to generate a quiz?<span
+                        class="faq-arrow">▼</span></button>
+                <div class="faq-a">You can use any text — textbook chapters, Wikipedia articles, news articles, blog
+                    posts, research papers, notes, or even just a topic name like "World War II" or "Photosynthesis".
+                </div>
             </div>
-            <div id="questionsContainer"></div>
-        </div>
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">How many questions can I generate?<span
+                        class="faq-arrow">▼</span></button>
+                <div class="faq-a">You can generate anywhere from 1 to 25 questions per quiz. Just type the number you
+                    want in the input box.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">What is the difference between MCQ and True/False?<span
+                        class="faq-arrow">▼</span></button>
+                <div class="faq-a">MCQ (Multiple Choice Questions) gives you 4 options to choose from. True/False gives
+                    you only two options — True or False. Both include AI-generated explanations after you answer.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q" onclick="toggleFaq(this)">How accurate are the AI-generated questions?<span
+                        class="faq-arrow">▼</span></button>
+                <div class="faq-a">QuizForge uses LLaMA 3.3 70B — one of the most powerful open-source AI models
+                    available. It generates highly accurate, relevant questions based on the text you provide.</div>
+            </div>
+        </section>
 
-        <div id="scoreCard">
-            <div class="score-num" id="scoreNum">0/0</div>
-            <div class="score-label">Your Score</div>
-            <div class="score-msg" id="scoreMsg"></div>
-            <button class="retry-btn" onclick="retryQuiz()">↺ Try Again</button>
-        </div>
-
-        <footer>Built by <span>Vibin I</span> · Powered by Groq API · QuizForge</footer>
+        <footer>
+            <p>Built by Vibin I ·
+                Powered by Groq API (LLaMA 3.3)</p>
+            <p style="margin-top:8px;">© 2025 QuizForge · Free AI Quiz Generator · No Login Required</p>
+        </footer>
     </div>
 
     <script>
-        let apiKey = localStorage.getItem('quizforge_key') || '';
         let quizData = [], answered = 0, score = 0;
-
-        if (apiKey) { document.getElementById('apiKey').value = apiKey; document.getElementById('keyStatus').textContent = '✓ Key loaded — ready to go!'; document.getElementById('keyStatus').className = 'key-status ok'; }
-
-        function saveKey() {
-            const val = document.getElementById('apiKey').value.trim();
-            if (!val.startsWith('gsk_')) { document.getElementById('keyStatus').textContent = '✗ Groq keys start with gsk_...'; document.getElementById('keyStatus').className = 'key-status err'; return; }
-            apiKey = val; localStorage.setItem('quizforge_key', val);
-            document.getElementById('keyStatus').textContent = '✓ Key saved! Same key works for all your AI projects.'; document.getElementById('keyStatus').className = 'key-status ok';
-        }
 
         async function generateQuiz() {
             const text = document.getElementById('inputText').value.trim();
@@ -763,43 +992,33 @@
             const errorEl = document.getElementById('errorMsg');
             errorEl.style.display = 'none';
 
-            if (!apiKey) { errorEl.textContent = '⚠ Please enter and save your Groq API key.'; errorEl.style.display = 'block'; return; }
             if (!text) { errorEl.textContent = '⚠ Please paste some text or a topic.'; errorEl.style.display = 'block'; return; }
             if (isNaN(numQRaw) || numQRaw < 1 || numQRaw > 25) { errorEl.textContent = '⚠ Please enter a number between 1 and 25.'; errorEl.style.display = 'block'; return; }
 
-            const numQ = numQRaw;
             const btn = document.getElementById('genBtn');
-            btn.disabled = true; document.getElementById('btnText').style.display = 'none'; document.getElementById('spinner').style.display = 'block';
-            document.getElementById('quizArea').style.display = 'none'; document.getElementById('scoreCard').style.display = 'none';
-
-            const typeInstruction = qtype === 'truefalse'
-                ? `Generate exactly ${numQ} True/False questions. Each options array must be exactly ["True","False"].`
-                : `Generate exactly ${numQ} multiple choice questions with exactly 4 options each.`;
-
-            const prompt = `You are a quiz generator. ${typeInstruction} Difficulty: ${difficulty}. Topic/Text: """${text}"""
-Respond ONLY with a valid JSON array. No markdown, no extra text. No explanation outside JSON.
-Format: [{"question":"...","options":["...","...","...","..."],"answer":0,"explanation":"..."}]
-"answer" is the 0-based index of the correct option.`;
+            btn.disabled = true;
+            document.getElementById('btnText').style.display = 'none';
+            document.getElementById('spinner').style.display = 'block';
+            document.getElementById('quizArea').style.display = 'none';
+            document.getElementById('scoreCard').style.display = 'none';
 
             try {
-                const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+                const res = await fetch('/.netlify/functions/quiz', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
-                    body: JSON.stringify({ model: 'llama-3.3-70b-versatile', messages: [{ role: 'user', content: prompt }], max_tokens: 4000, temperature: 0.7 })
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ text, numQ: numQRaw, difficulty, qtype })
                 });
-                if (!res.ok) { const e = await res.json(); throw new Error(e.error?.message || `API error ${res.status}`); }
                 const data = await res.json();
-                let raw = data.choices[0].message.content.trim().replace(/```json|```/g, '').trim();
-                // Find JSON array in response
-                const match = raw.match(/\[[\s\S]*\]/);
-                if (!match) throw new Error('Could not parse quiz data. Try again.');
-                quizData = JSON.parse(match[0]);
-                if (!Array.isArray(quizData) || !quizData.length) throw new Error('Invalid quiz data received.');
+                if (!res.ok) throw new Error(data.error || 'Something went wrong');
+                quizData = data.quizData;
                 renderQuiz(text.slice(0, 45) + (text.length > 45 ? '...' : ''), difficulty, qtype);
             } catch (err) {
-                errorEl.textContent = '✗ Error: ' + err.message; errorEl.style.display = 'block';
+                errorEl.textContent = '✗ Error: ' + err.message;
+                errorEl.style.display = 'block';
             } finally {
-                btn.disabled = false; document.getElementById('btnText').style.display = 'block'; document.getElementById('spinner').style.display = 'none';
+                btn.disabled = false;
+                document.getElementById('btnText').style.display = 'block';
+                document.getElementById('spinner').style.display = 'none';
             }
         }
 
@@ -810,7 +1029,7 @@ Format: [{"question":"...","options":["...","...","...","..."],"answer":0,"expla
             document.getElementById('progressFill').style.width = '0%';
             const container = document.getElementById('questionsContainer');
             container.innerHTML = '';
-            const letters = ['A', 'B', 'C', 'D', 'E', 'F'];
+            const letters = ['A', 'B', 'C', 'D'];
             quizData.forEach((q, i) => {
                 const card = document.createElement('div');
                 card.className = 'q-card';
@@ -854,6 +1073,8 @@ Format: [{"question":"...","options":["...","...","...","..."],"answer":0,"expla
             document.getElementById('quizArea').style.display = 'none';
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
+
+        function toggleFaq(btn) { btn.parentElement.classList.toggle('open'); }
     </script>
 </body>
 

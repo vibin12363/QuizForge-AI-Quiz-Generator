@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://quizforge-ai-quiz-generator.netlify.app/sitemap.xml
